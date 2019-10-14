@@ -1,6 +1,7 @@
 package com.slc.agent;
 
-import com.slc.agent.collect.ServiceCollect;
+import com.slc.agent.collect.HttpServiceCollect;
+import com.slc.agent.collect.InnerServiceCollect;
 
 import java.lang.instrument.Instrumentation;
 
@@ -15,6 +16,7 @@ import java.lang.instrument.Instrumentation;
 public class SimpleAgent {
 
     public static void premain(String arg, Instrumentation instrumentation) {
-        ServiceCollect.init(instrumentation);
+        new InnerServiceCollect().init(instrumentation);
+        //new HttpServiceCollect().init(instrumentation);
     }
 }
