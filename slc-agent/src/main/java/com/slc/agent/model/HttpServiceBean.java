@@ -1,19 +1,24 @@
 package com.slc.agent.model;
 
+import com.slc.agent.utils.NetworkUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author zrh
  */
-public class ServiceBean extends BaseBean implements java.io.Serializable {
+public class HttpServiceBean extends BaseBean implements java.io.Serializable {
     private static final long serialVersionUID = -1401514565399171693L;
     private Long begin;
     private Long end;
     private Long userTime;
     private String errorMsg;
     private String errorType;
-    private String serviceName;
-    private String simpleName;
-    private String methodName;
+    private String requestUrl;
+    private String requestMethod;
+    private Integer responseStatus;
 
     public Long getBegin() {
         return begin;
@@ -55,37 +60,37 @@ public class ServiceBean extends BaseBean implements java.io.Serializable {
         this.errorType = errorType;
     }
 
-    public String getServiceName() {
-        return serviceName;
+
+    public String getRequestUrl() {
+        return requestUrl;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setRequestUrl(String requestUrl) {
+        this.requestUrl = requestUrl;
     }
 
-    public String getSimpleName() {
-        return simpleName;
+    public String getRequestMethod() {
+        return requestMethod;
     }
 
-    public void setSimpleName(String simpleName) {
-        this.simpleName = simpleName;
+    public void setRequestMethod(String requestMethod) {
+        this.requestMethod = requestMethod;
     }
 
-    public String getMethodName() {
-        return methodName;
+    public Integer getResponseStatus() {
+        return responseStatus;
     }
 
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
+    public void setResponseStatus(Integer responseStatus) {
+        this.responseStatus = responseStatus;
     }
 
-
-    public  void setStartAgent(String className,String methodName){
+    public  void setStartAgent(HttpServletRequest request){
         this.setBegin(System.currentTimeMillis());
-        this.setServiceName(className);
-        this.setMethodName(methodName);
-        this.setSimpleName(className.substring(className.lastIndexOf("/")));
-        this.setRecordModel("service");
+        this.setHostIp(NetworkUtil.getIpAddress(request));
+        this.setRequestMethod(request.getMethod());
+        this.setRequestUrl(request.getRequestURL().toString());
+        this.setRecordModel("http service");
         this.setRecordTime(System.currentTimeMillis());
     }
 
@@ -94,23 +99,24 @@ public class ServiceBean extends BaseBean implements java.io.Serializable {
         this.setErrorMsg(e.getMessage());
     }
 
-    public  void setEndAgent(){
+    public  void setEndAgent(HttpServletResponse response){
         this.setEnd(System.currentTimeMillis());
         this.setUserTime(this.end - this.begin);
+        this.setResponseStatus(response.getStatus());
         System.out.println(this.toString());
     }
 
     @Override
     public String toString() {
-        return "ServiceBean{" +
+        return "HttpServiceBean{" +
                 "begin=" + begin +
                 ", end=" + end +
                 ", userTime=" + userTime +
                 ", errorMsg='" + errorMsg + '\'' +
                 ", errorType='" + errorType + '\'' +
-                ", serviceName='" + serviceName + '\'' +
-                ", simpleName='" + simpleName + '\'' +
-                ", methodName='" + methodName + '\'' +
-                '}';
+                ", requestUrl='" + requestUrl + '\'' +
+                ", requestMethod='" + requestMethod + '\'' +
+                ", responseStatus=" + responseStatus +
+                '}' + super.toString();
     }
 }
