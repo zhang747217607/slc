@@ -1,5 +1,6 @@
 package com.slc.agent.model;
 
+import com.slc.agent.utils.JsonUtil;
 import com.slc.agent.utils.NetworkUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -103,7 +104,7 @@ public class HttpServiceBean extends BaseBean implements java.io.Serializable {
         this.setEnd(System.currentTimeMillis());
         this.setUserTime(this.end - this.begin);
         this.setResponseStatus(response.getStatus());
-        System.out.println(this.toString());
+        System.out.println(JsonUtil.toJsonStr(this));
     }
 
     @Override

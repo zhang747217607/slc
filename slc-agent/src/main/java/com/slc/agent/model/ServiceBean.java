@@ -1,5 +1,7 @@
 package com.slc.agent.model;
 
+import com.slc.agent.utils.JsonUtil;
+
 /**
  *
  * @author zrh
@@ -97,7 +99,7 @@ public class ServiceBean extends BaseBean implements java.io.Serializable {
     public  void setEndAgent(){
         this.setEnd(System.currentTimeMillis());
         this.setUserTime(this.end - this.begin);
-        System.out.println(this.toString());
+        System.out.println(JsonUtil.toJsonStr(this));
     }
 
     @Override
