@@ -26,6 +26,9 @@
                         </manifest>
                         <manifestEntries>                     <!-- 配置清单（MANIFEST）属性 -->
                             <Premain-Class>com.slc.agent.SimpleAgent</Premain-Class>
+                            <Agent-Class>com.slc.agent.SimpleAgent</Agent-Class>
+                            <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                            <Can-Redefine-Classes>true</Can-Redefine-Classes>
                         </manifestEntries>
                     </archive>
                 </configuration>

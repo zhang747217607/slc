@@ -3,6 +3,11 @@ package com.slc.service;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import com.sun.tools.attach.AgentInitializationException;
+import com.sun.tools.attach.AgentLoadException;
+import com.sun.tools.attach.AttachNotSupportedException;
+import com.sun.tools.attach.VirtualMachine;
+import com.sun.tools.attach.VirtualMachineDescriptor;
 import javassist.CannotCompileException;
 import javassist.ClassClassPath;
 import javassist.ClassPool;
@@ -13,6 +18,7 @@ import javassist.NotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.List;
 
 /**
  * <p>
@@ -24,7 +30,7 @@ import java.net.InetSocketAddress;
  */
 public class App {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, AgentLoadException, AgentInitializationException, AttachNotSupportedException {
 
      /*   ClassPool cp = ClassPool.getDefault();
         try {
@@ -43,6 +49,18 @@ public class App {
 //        HttpServer server = HttpServer.create(new InetSocketAddress(8001), 0);
 //        server.createContext("/test", new TestHandler());
 //        server.start();
+
+        while (true){
+            List<VirtualMachineDescriptor> list = VirtualMachine.list();
+            for (VirtualMachineDescriptor vmd : list) {
+                if (vmd.displayName().endsWith("HttpAgentDemoApplication")) {
+                    VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
+                    virtualMachine.loadAgent("F:\\workspace\\evcard-workspace\\slc\\slc-agent\\target\\slc-agent-1.0-SNAPSHOT.jar", "cxs");
+                    System.out.println("ok");
+                    virtualMachine.detach();
+                }
+            }
+        }
     }
 
    /* public  static  class TestHandler implements HttpHandler {

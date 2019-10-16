@@ -15,8 +15,13 @@ import java.lang.instrument.Instrumentation;
  */
 public class SimpleAgent {
 
-    public static void premain(String arg, Instrumentation instrumentation) {
-        ServiceCollect.init(instrumentation,new ServiceCollect());
-        HttpServiceCollect.init(instrumentation,new HttpServiceCollect());
+  /*  public static void premain(String arg, Instrumentation instrumentation) {
+        instrumentation.addTransformer(new ServiceCollect());
+        instrumentation.addTransformer(new HttpServiceCollect());
+    }*/
+
+    public static void agentmain(String arg, Instrumentation instrumentation){
+        instrumentation.addTransformer(new ServiceCollect());
+        instrumentation.addTransformer(new HttpServiceCollect());
     }
 }

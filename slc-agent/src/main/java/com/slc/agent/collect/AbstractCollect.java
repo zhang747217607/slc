@@ -20,10 +20,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class AbstractCollect implements ClassFileTransformer {
 
-    public static void init(Instrumentation instrumentation,ClassFileTransformer classFileTransformer) {
-        instrumentation.addTransformer(classFileTransformer);
-    }
-
     public static ConcurrentHashMap<ClassLoader, ClassPool> classPoolMap = new ConcurrentHashMap<>();
 
     public static CtClass getCtClass(ClassLoader classLoader, String className) throws NotFoundException {
