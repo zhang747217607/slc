@@ -30,6 +30,7 @@ public class SourceTemplate {
             + "        return ($r) result;\n"
             + "}\n";
 
+
     public final static String VOID_SOURCE_TEMPLATE = "{\n"
             + "%s"
             + "        try {\n"

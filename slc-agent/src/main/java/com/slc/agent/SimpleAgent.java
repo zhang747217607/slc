@@ -2,6 +2,7 @@ package com.slc.agent;
 
 import com.slc.agent.collect.HttpServiceCollect;
 import com.slc.agent.collect.ServiceCollect;
+import com.slc.agent.context.SlcContext;
 
 import java.lang.instrument.Instrumentation;
 
@@ -15,13 +16,15 @@ import java.lang.instrument.Instrumentation;
  */
 public class SimpleAgent {
 
-  /*  public static void premain(String arg, Instrumentation instrumentation) {
-        instrumentation.addTransformer(new ServiceCollect());
-        instrumentation.addTransformer(new HttpServiceCollect());
-    }*/
-
-    public static void agentmain(String arg, Instrumentation instrumentation){
-        instrumentation.addTransformer(new ServiceCollect());
-        instrumentation.addTransformer(new HttpServiceCollect());
+    public static void premain(String arg, Instrumentation instrumentation) {
+        SlcContext slcContext = new SlcContext(instrumentation);
+        slcContext.addCollect(new ServiceCollect());
+        slcContext.addCollect(new HttpServiceCollect());
     }
+
+ /*   public static void agentmain(String arg, Instrumentation instrumentation){
+        SlcContext slcContext = new SlcContext(instrumentation);
+        slcContext.addCollect(new ServiceCollect());
+        slcContext.addCollect(new HttpServiceCollect());
+    }*/
 }

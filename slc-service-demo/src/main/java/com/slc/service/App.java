@@ -50,17 +50,15 @@ public class App {
 //        server.createContext("/test", new TestHandler());
 //        server.start();
 
-        while (true){
-            List<VirtualMachineDescriptor> list = VirtualMachine.list();
-            for (VirtualMachineDescriptor vmd : list) {
-                if (vmd.displayName().endsWith("HttpAgentDemoApplication")) {
-                    VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
-                    virtualMachine.loadAgent("F:\\workspace\\evcard-workspace\\slc\\slc-agent\\target\\slc-agent-1.0-SNAPSHOT.jar", "cxs");
-                    System.out.println("ok");
-                    virtualMachine.detach();
-                }
+       /* List<VirtualMachineDescriptor> list = VirtualMachine.list();
+        for (VirtualMachineDescriptor vmd : list) {
+            if (vmd.displayName().endsWith("HttpAgentDemoApplication")) {
+                VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
+                virtualMachine.loadAgent("F:\\workspace\\evcard-workspace\\slc\\slc-agent\\target\\slc-agent-1.0-SNAPSHOT.jar", "cxs");
+                System.out.println("ok");
+                virtualMachine.detach();
             }
-        }
+        }*/
     }
 
    /* public  static  class TestHandler implements HttpHandler {

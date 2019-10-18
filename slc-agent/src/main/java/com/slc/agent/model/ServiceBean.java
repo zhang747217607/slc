@@ -99,7 +99,6 @@ public class ServiceBean extends BaseBean implements java.io.Serializable {
     public  void setEndAgent(){
         this.setEnd(System.currentTimeMillis());
         this.setUserTime(this.end - this.begin);
-        System.out.println(JsonUtil.toJsonStr(this));
     }
 
     @Override

@@ -104,7 +104,6 @@ public class HttpServiceBean extends BaseBean implements java.io.Serializable {
         this.setEnd(System.currentTimeMillis());
         this.setUserTime(this.end - this.begin);
         this.setResponseStatus(response.getStatus());
-        System.out.println(JsonUtil.toJsonStr(this));
     }
 
     @Override

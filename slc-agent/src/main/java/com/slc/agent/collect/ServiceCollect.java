@@ -37,7 +37,10 @@ public class ServiceCollect extends AbstractCollect {
         stringBuilder.append("serviceBean.setStartAgent(\"%s\",\"%s\"); \r\n");
         startTemplate = stringBuilder.toString();
         errorTemplate = "serviceBean.setErrorAgent(e); \r\n";
-        endTemplate = "serviceBean.setEndAgent(); \r\n";
+        stringBuilder = new StringBuilder();
+        stringBuilder.append("serviceBean.setEndAgent(); \r\n");
+        stringBuilder.append("com.slc.agent.context.SlcContext.logHandler.execute(serviceBean);  \r\n");
+        endTemplate = stringBuilder.toString();
     }
 
     @Override
